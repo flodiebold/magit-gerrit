@@ -91,6 +91,9 @@
 (defvar-local magit-gerrit-remote "origin"
   "Default remote name to use for gerrit (e.g. \"origin\", \"gerrit\")")
 
+(defvar-local magit-gerrit-port 29418
+  "Port to use for gerrit (e.g. 29418)")
+
 (defcustom magit-gerrit-popup-prefix (kbd "R")
   "Key code to open magit-gerrit popup"
   :group 'magit-gerrit
@@ -98,7 +101,9 @@
 
 (defun gerrit-command (cmd &rest args)
   (let ((gcmd (concat
-	       "-x -p 29418 "
+	       "-x -p "
+         (number-to-string magit-gerrit-port)
+         " "
 	       (or magit-gerrit-ssh-creds
 		   (error "`magit-gerrit-ssh-creds' must be set!"))
 	       " "
